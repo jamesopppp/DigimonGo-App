@@ -4,17 +4,49 @@ import styled from 'styled-components'
 const Card = (props) => (
   <Container>
     <Cover>
-      <Image
-        source={{
-          uri: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F4a%2F8c%2Fca%2F4a8cca78ca797f4dd85e454adedb3157.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645611695&t=c316acf9c0689cd00c38d4d3ca4d05c2',
-        }}
-      />
-      <Title>Styled Components</Title>
+      <Image source={{ uri: props.image }} />
+      <Title>{props.title}</Title>
     </Cover>
+    <Content>
+      <Logo source={{ uri: props.logo }} />
+      <Wrapper>
+        <Caption>{props.caption}</Caption>
+        <Subtitle>{props.subtitle}</Subtitle>
+      </Wrapper>
+    </Content>
   </Container>
 )
 
 export default Card
+
+const Content = styled.View`
+  padding-left: 20px;
+  flex-direction: row;
+  align-items: center;
+  height: 80px;
+`
+
+const Logo = styled.Image`
+  width: 44px;
+  height: 44px;
+  margin-right: 5px;
+`
+
+const Caption = styled.Text`
+  color: #3c4560;
+  font-size: 20px;
+  font-weight: 600;
+`
+
+const Subtitle = styled.Text`
+  color: #b8bece;
+  font-weight: 600;
+  font-size: 15px;
+  text-transform: uppercase;
+  margin-top: 4px;
+`
+
+const Wrapper = styled.View``
 
 const Container = styled.View`
   background-color: white;
@@ -37,6 +69,16 @@ const Cover = styled.View`
 const Image = styled.Image`
   width: 100%;
   height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 `
 
-const Title = styled.Text``
+const Title = styled.Text`
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-left: 20px;
+  width: 170px;
+`

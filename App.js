@@ -1,22 +1,40 @@
 import { StatusBar } from 'expo-status-bar'
-import { Text } from 'react-native'
+import { ScrollView, SafeAreaView } from 'react-native'
 import styled from 'styled-components'
 import Card from './components/Card'
+import { Ionicons } from '@expo/vector-icons'
+import { NotificationIcon } from './components/Icons'
+import Data from './json/card.json'
 
 export default function App() {
   return (
     <Container>
-      <TitleBar>
-        <Avatar
-          source={{
-            uri: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2Fc2%2F88%2F07%2Fc2880735e9b777937f8453e4bf1d91f9.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645604761&t=7870bc0e2ec0629952c68f8e2d36a352',
-          }}
-        />
-        <Title>Welcome back,</Title>
-        <Name>JAMES</Name>
-      </TitleBar>
-      <Subtitle>Continue Learning</Subtitle>
-      <Card></Card>
+      <SafeAreaView>
+        <ScrollView>
+          <TitleBar>
+            <Avatar
+              source={{
+                uri: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2Fc2%2F88%2F07%2Fc2880735e9b777937f8453e4bf1d91f9.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645604761&t=7870bc0e2ec0629952c68f8e2d36a352',
+              }}
+            />
+            <Title>Welcome back,</Title>
+            <Name>JAMES</Name>
+            <NotificationIcon
+              style={{ position: 'absolute', right: 20, top: 5 }}
+            />
+          </TitleBar>
+          <Subtitle>Continue Learning</Subtitle>
+          <ScrollView
+            horizontal={true}
+            style={{ paddingBottom: 30 }}
+            showsHorizontalScrollIndicator={false}
+          >
+            {Data.card.map((item, index) => (
+              <Card key={index} {...item} />
+            ))}
+          </ScrollView>
+        </ScrollView>
+      </SafeAreaView>
     </Container>
   )
 }
