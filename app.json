@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Digimon Go",
-    "slug": "Digimon Go",
+    "slug": "DigimonGo",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",

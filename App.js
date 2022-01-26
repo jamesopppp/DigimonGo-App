@@ -5,6 +5,7 @@ import Card from './components/Card'
 import { Ionicons } from '@expo/vector-icons'
 import Data from './mock/index.json'
 import Logo from './components/Logo'
+import Course from './components/Course'
 
 export default function App() {
   return (
@@ -37,7 +38,7 @@ export default function App() {
             }}
           >
             {logos.map((logo, index) => {
-              return <Logo key={index} image={logo.image} text={logo.text} />
+              return <Logo key={index} {...logo} />
             })}
           </ScrollView>
           <Subtitle>Continue Learning</Subtitle>
@@ -46,10 +47,14 @@ export default function App() {
             style={{ paddingBottom: 30 }}
             showsHorizontalScrollIndicator={false}
           >
-            {Data.card.map((item, index) => (
+            {cards.map((item, index) => (
               <Card key={index} {...item} />
             ))}
           </ScrollView>
+          <Subtitle>Popular Courses</Subtitle>
+          {courses.map((course, index) => (
+            <Course key={index} {...course} />
+          ))}
         </ScrollView>
       </SafeAreaView>
     </Container>
@@ -127,5 +132,68 @@ const logos = [
   {
     text: 'Patamon',
     image: require('./assets/logo_07.png'),
+  },
+]
+
+const cards = [
+  {
+    title: 'React Native for Designers',
+    image:
+      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F4a%2F8c%2Fca%2F4a8cca78ca797f4dd85e454adedb3157.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645611695&t=c316acf9c0689cd00c38d4d3ca4d05c2',
+    subtitle: 'React Native',
+    caption: '1 of 12 sections',
+    logo: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fzyiz.net%2Fupload%2F202005%2F07%2F202005071426386611.png&refer=http%3A%2F%2Fzyiz.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645615744&t=f9718470e94f0f861728ce5027cf4d2e',
+  },
+  {
+    title: 'React Native for Designers',
+    image:
+      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F4a%2F8c%2Fca%2F4a8cca78ca797f4dd85e454adedb3157.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645611695&t=c316acf9c0689cd00c38d4d3ca4d05c2',
+    subtitle: 'React Native',
+    caption: '1 of 12 sections',
+    logo: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fzyiz.net%2Fupload%2F202005%2F07%2F202005071426386611.png&refer=http%3A%2F%2Fzyiz.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645615744&t=f9718470e94f0f861728ce5027cf4d2e',
+  },
+  {
+    title: 'React Native for Designers',
+    image:
+      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F4a%2F8c%2Fca%2F4a8cca78ca797f4dd85e454adedb3157.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645611695&t=c316acf9c0689cd00c38d4d3ca4d05c2',
+    subtitle: 'React Native',
+    caption: '1 of 12 sections',
+    logo: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fzyiz.net%2Fupload%2F202005%2F07%2F202005071426386611.png&refer=http%3A%2F%2Fzyiz.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645615744&t=f9718470e94f0f861728ce5027cf4d2e',
+  },
+]
+
+const courses = [
+  {
+    title: 'Prototype in InVision Studio',
+    subtitle: '10 sections',
+    image:
+      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F4a%2F8c%2Fca%2F4a8cca78ca797f4dd85e454adedb3157.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645611695&t=c316acf9c0689cd00c38d4d3ca4d05c2',
+    logo: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fzyiz.net%2Fupload%2F202005%2F07%2F202005071426386611.png&refer=http%3A%2F%2Fzyiz.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645615744&t=f9718470e94f0f861728ce5027cf4d2e',
+    author: 'JAMES',
+    avatar:
+      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2Fc2%2F88%2F07%2Fc2880735e9b777937f8453e4bf1d91f9.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645604761&t=7870bc0e2ec0629952c68f8e2d36a352',
+    caption: 'Design and interactive prototype',
+  },
+  {
+    title: 'Prototype in InVision Studio',
+    subtitle: '10 sections',
+    image:
+      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F4a%2F8c%2Fca%2F4a8cca78ca797f4dd85e454adedb3157.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645611695&t=c316acf9c0689cd00c38d4d3ca4d05c2',
+    logo: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fzyiz.net%2Fupload%2F202005%2F07%2F202005071426386611.png&refer=http%3A%2F%2Fzyiz.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645615744&t=f9718470e94f0f861728ce5027cf4d2e',
+    author: 'JAMES',
+    avatar:
+      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2Fc2%2F88%2F07%2Fc2880735e9b777937f8453e4bf1d91f9.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645604761&t=7870bc0e2ec0629952c68f8e2d36a352',
+    caption: 'Design and interactive prototype',
+  },
+  {
+    title: 'Prototype in InVision Studio',
+    subtitle: '10 sections',
+    image:
+      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F4a%2F8c%2Fca%2F4a8cca78ca797f4dd85e454adedb3157.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645611695&t=c316acf9c0689cd00c38d4d3ca4d05c2',
+    logo: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fzyiz.net%2Fupload%2F202005%2F07%2F202005071426386611.png&refer=http%3A%2F%2Fzyiz.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645615744&t=f9718470e94f0f861728ce5027cf4d2e',
+    author: 'JAMES',
+    avatar:
+      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2Fc2%2F88%2F07%2Fc2880735e9b777937f8453e4bf1d91f9.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645604761&t=7870bc0e2ec0629952c68f8e2d36a352',
+    caption: 'Design and interactive prototype',
   },
 ]
