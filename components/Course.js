@@ -5,14 +5,14 @@ const Course = (props) => (
   <Container>
     <Cover>
       <Image source={{ uri: props.image }} />
-      <Logo source={{ uri: props.logo }} />
+      <Logo source={props.logo} resizeMode="contain" />
       <Subtitle>{props.subtitle}</Subtitle>
       <Title>{props.title}</Title>
     </Cover>
     <Content>
       <Avatar source={{ uri: props.avatar }} />
       <Caption>{props.caption}</Caption>
-      <Name>{props.author}</Name>
+      <Name>Taught by {props.author}</Name>
     </Content>
   </Container>
 )
@@ -69,13 +69,30 @@ const Subtitle = styled.Text`
   margin-left: 20px;
 `
 
-const Content = styled.View``
-
-const Avatar = styled.Image`
-  width: 32px;
-  height: 32px;
+const Content = styled.View`
+  height: 75px;
+  padding-left: 62px;
+  justify-content: center;
 `
 
-const Caption = styled.Text``
+const Avatar = styled.Image`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+`
 
-const Name = styled.Text``
+const Caption = styled.Text`
+  font-size: 14px;
+  color: #3c4560;
+  font-weight: 500;
+`
+
+const Name = styled.Text`
+  font-size: 13px;
+  color: #b8bece;
+  font-weight: 500;
+  margin-top: 4px;
+`
