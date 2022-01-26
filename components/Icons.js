@@ -1,6 +1,5 @@
 import * as React from 'react'
 import Svg, { Path } from 'react-native-svg'
-import { View } from 'react-native'
 /* SVGR has dropped some elements not supported by react-native-svg: title */
 
 export const NotificationIcon = (props) => (

@@ -3,8 +3,8 @@ import { ScrollView, SafeAreaView } from 'react-native'
 import styled from 'styled-components'
 import Card from './components/Card'
 import { Ionicons } from '@expo/vector-icons'
-import { NotificationIcon } from './components/Icons'
-import Data from './json/card.json'
+import Data from './mock/index.json'
+import Logo from './components/Logo'
 
 export default function App() {
   return (
@@ -19,10 +19,27 @@ export default function App() {
             />
             <Title>Welcome back,</Title>
             <Name>JAMES</Name>
-            <NotificationIcon
+            <Ionicons
+              name="notifications"
+              size={24}
+              color="#4775f2"
               style={{ position: 'absolute', right: 20, top: 5 }}
             />
           </TitleBar>
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            horizontal={true}
+            style={{
+              flexDirection: 'row',
+              padding: 20,
+              paddingLeft: 12,
+              paddingTop: 30,
+            }}
+          >
+            {logos.map((logo, index) => {
+              return <Logo key={index} image={logo.image} text={logo.text} />
+            })}
+          </ScrollView>
           <Subtitle>Continue Learning</Subtitle>
           <ScrollView
             horizontal={true}
@@ -44,7 +61,7 @@ const Subtitle = styled.Text`
   font-weight: 600;
   font-size: 15px;
   margin-left: 20px;
-  margin-top: 50px;
+  margin-top: 10px;
   text-transform: uppercase;
 `
 
@@ -81,3 +98,34 @@ const TitleBar = styled.View`
   margin-top: 50px;
   padding-left: 80px;
 `
+
+const logos = [
+  {
+    text: 'Agumon',
+    image: require('./assets/logo_01.png'),
+  },
+  {
+    text: 'Gabumon',
+    image: require('./assets/logo_02.png'),
+  },
+  {
+    text: 'Piyomon',
+    image: require('./assets/logo_03.png'),
+  },
+  {
+    text: 'Tentomon',
+    image: require('./assets/logo_04.png'),
+  },
+  {
+    text: 'Palmon',
+    image: require('./assets/logo_05.png'),
+  },
+  {
+    text: 'Gomamon',
+    image: require('./assets/logo_06.png'),
+  },
+  {
+    text: 'Patamon',
+    image: require('./assets/logo_07.png'),
+  },
+]
