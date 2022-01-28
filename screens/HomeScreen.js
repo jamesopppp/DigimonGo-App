@@ -14,10 +14,12 @@ import Course from '../components/Course'
 import Menu from '../components/Menu'
 import { connect } from 'react-redux'
 import { useRef, useEffect } from 'react'
+import Avatar from '../components/Avatar'
 
 function mapStateToProps(state) {
   return {
     action: state.action,
+    name: state.name,
   }
 }
 
@@ -87,17 +89,13 @@ function HomeScreen(props) {
                 style={{
                   position: 'absolute',
                   top: 0,
-                  left: 0,
+                  left: 20,
                 }}
               >
-                <Avatar
-                  source={{
-                    uri: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2Fc2%2F88%2F07%2Fc2880735e9b777937f8453e4bf1d91f9.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645604761&t=7870bc0e2ec0629952c68f8e2d36a352',
-                  }}
-                />
+                <Avatar />
               </TouchableOpacity>
               <Title>Welcome back,</Title>
-              <Name>JAMES</Name>
+              <Name>{props.name}</Name>
               <Ionicons
                 name="notifications"
                 size={24}
@@ -154,14 +152,6 @@ const Subtitle = styled.Text`
   margin-left: 20px;
   margin-top: 10px;
   text-transform: uppercase;
-`
-
-const Avatar = styled.Image`
-  width: 44px;
-  height: 44px;
-  background: black;
-  border-radius: 22px;
-  margin-left: 20px;
 `
 
 const Container = styled.View`
