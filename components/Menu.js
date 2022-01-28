@@ -3,24 +3,48 @@ import styled from 'styled-components'
 import { Animated, TouchableOpacity, Dimensions } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import MenuItem from './MenuItem'
+import { connect } from 'react-redux'
+
+function mapStateToProps(state) {
+  return { action: state.action }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    closeMenu: () =>
+      dispatch({
+        type: 'CLOSE_MENU',
+      }),
+  }
+}
 
 const screenHeight = Dimensions.get('window').height
 
-const Menu = () => {
+const Menu = (props) => {
   const top = useRef(new Animated.Value(screenHeight)).current
 
   useEffect(() => {
-    Animated.spring(top, {
-      toValue: 0,
-      useNativeDriver: false,
-    }).start()
+    toggleMenu()
   }, [])
 
+  useEffect(() => {
+    toggleMenu()
+  })
+
   const toggleMenu = () => {
-    Animated.spring(top, {
-      toValue: screenHeight,
-      useNativeDriver: false,
-    }).start()
+    if (props.action == 'openMenu') {
+      Animated.spring(top, {
+        toValue: 54,
+        useNativeDriver: false,
+      }).start()
+    }
+
+    if (props.action == 'closeMenu') {
+      Animated.spring(top, {
+        toValue: screenHeight,
+        useNativeDriver: false,
+      }).start()
+    }
   }
 
   return (
@@ -35,7 +59,7 @@ const Menu = () => {
         <Subtitle>Designer at Space</Subtitle>
       </Cover>
       <TouchableOpacity
-        onPress={toggleMenu}
+        onPress={props.closeMenu}
         style={{
           position: 'absolute',
           top: 120,
@@ -57,7 +81,7 @@ const Menu = () => {
   )
 }
 
-export default Menu
+export default connect(mapStateToProps, mapDispatchToProps)(Menu)
 
 const Image = styled.Image`
   position: absolute;
@@ -93,6 +117,8 @@ const Container = styled.View`
   width: 100%;
   height: 100%;
   z-index: 100;
+  border-radius: 10px;
+  overflow: hidden;
 `
 
 const AnimatedContainer = Animated.createAnimatedComponent(Container)
