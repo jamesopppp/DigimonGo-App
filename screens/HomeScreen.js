@@ -15,6 +15,40 @@ import Menu from '../components/Menu'
 import { connect } from 'react-redux'
 import { useRef, useEffect } from 'react'
 import Avatar from '../components/Avatar'
+import { useQuery, gql } from '@apollo/client'
+
+const CardsQuery = gql`
+  {
+    cardsCollection {
+      items {
+        title
+        subtitle
+        image {
+          title
+          description
+          contentType
+          fileName
+          size
+          url
+          width
+          height
+        }
+        subtitle
+        caption
+        logo {
+          title
+          description
+          contentType
+          fileName
+          size
+          url
+          width
+          height
+        }
+      }
+    }
+  }
+`
 
 function mapStateToProps(state) {
   return {
@@ -35,6 +69,11 @@ function mapDispatchToProps(dispatch) {
 function HomeScreen(props) {
   const scale = useRef(new Animated.Value(1)).current
   const opacity = useRef(new Animated.Value(1)).current
+  const {
+    loading: cardsLoading,
+    error: cardsError,
+    data: cardsData,
+  } = useQuery(CardsQuery)
 
   useEffect(() => {
     setStatusBarStyle('dark')
@@ -123,18 +162,26 @@ function HomeScreen(props) {
               style={{ paddingBottom: 30 }}
               showsHorizontalScrollIndicator={false}
             >
-              {cards.map((card, index) => (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => {
-                    props.navigation.navigate('Section', {
-                      section: card,
-                    })
-                  }}
-                >
-                  <Card {...card} />
-                </TouchableOpacity>
-              ))}
+              {cardsLoading ? (
+                <Message>Loading...</Message>
+              ) : cardsError ? (
+                <Message>Error...</Message>
+              ) : (
+                <CardContainer>
+                  {cardsData.cardsCollection.items.map((card, index) => (
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() => {
+                        props.navigation.navigate('Section', {
+                          section: card,
+                        })
+                      }}
+                    >
+                      <Card {...card} />
+                    </TouchableOpacity>
+                  ))}
+                </CardContainer>
+              )}
             </ScrollView>
             <Subtitle>Popular Courses</Subtitle>
             {courses.map((course, index) => (
@@ -148,6 +195,17 @@ function HomeScreen(props) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
+
+const Message = styled.Text`
+  margin: 20px;
+  color: #b8bece;
+  font-size: 15px;
+  font-weight: 500;
+`
+
+const CardContainer = styled.View`
+  flex-direction: row;
+`
 
 const RootView = styled.View`
   background: black;
@@ -231,19 +289,27 @@ const cards = [
     logo: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fzyiz.net%2Fupload%2F202005%2F07%2F202005071426386611.png&refer=http%3A%2F%2Fzyiz.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645615744&t=f9718470e94f0f861728ce5027cf4d2e',
   },
   {
-    title: 'React Native for Designers',
+    title: 'Styled Components',
     image:
       'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F4a%2F8c%2Fca%2F4a8cca78ca797f4dd85e454adedb3157.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645611695&t=c316acf9c0689cd00c38d4d3ca4d05c2',
     subtitle: 'React Native',
-    caption: '1 of 12 sections',
+    caption: '2 of 12 sections',
     logo: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fzyiz.net%2Fupload%2F202005%2F07%2F202005071426386611.png&refer=http%3A%2F%2Fzyiz.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645615744&t=f9718470e94f0f861728ce5027cf4d2e',
   },
   {
-    title: 'React Native for Designers',
+    title: 'Props and Icons',
     image:
       'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F4a%2F8c%2Fca%2F4a8cca78ca797f4dd85e454adedb3157.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645611695&t=c316acf9c0689cd00c38d4d3ca4d05c2',
     subtitle: 'React Native',
-    caption: '1 of 12 sections',
+    caption: '3 of 12 sections',
+    logo: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fzyiz.net%2Fupload%2F202005%2F07%2F202005071426386611.png&refer=http%3A%2F%2Fzyiz.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645615744&t=f9718470e94f0f861728ce5027cf4d2e',
+  },
+  {
+    title: 'Static Data and Loop',
+    image:
+      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F4a%2F8c%2Fca%2F4a8cca78ca797f4dd85e454adedb3157.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645611695&t=c316acf9c0689cd00c38d4d3ca4d05c2',
+    subtitle: 'React Native',
+    caption: '4 of 12 sections',
     logo: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fzyiz.net%2Fupload%2F202005%2F07%2F202005071426386611.png&refer=http%3A%2F%2Fzyiz.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645615744&t=f9718470e94f0f861728ce5027cf4d2e',
   },
 ]

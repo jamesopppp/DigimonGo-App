@@ -14,9 +14,9 @@ function SectionScreen(props) {
     <Container>
       <StatusBar animated={true} style={'light'} />
       <Cover>
-        <Image source={{ uri: section.image }} />
+        <Image source={{ uri: section.image.url }} />
         <Wrapper>
-          <Logo source={{ uri: section.logo }} />
+          <Logo source={{ uri: section.logo.url }} />
           <Subtitle>{section.subtitle}</Subtitle>
         </Wrapper>
         <Title>{section.title}</Title>

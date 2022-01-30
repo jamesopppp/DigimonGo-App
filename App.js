@@ -1,8 +1,17 @@
 import React from 'react'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import HomeScreen from './screens/HomeScreen'
 import AppNavigator from './navigator/AppNavigator'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+
+const client = new ApolloClient({
+  uri: 'https://graphql.contentful.com/content/v1/spaces/ltj3qpixhdar',
+  cache: new InMemoryCache(),
+  credentials: 'same-origin',
+  headers: {
+    Authorization: `Bearer jJHl8X5jG8UaZl9l0xkHxQzXaegTTyll_LK5iRgeAM0`,
+  },
+})
 
 const initialState = {
   action: '',
@@ -34,9 +43,11 @@ const reducer = (state = initialState, action) => {
 const store = createStore(reducer)
 
 const App = () => (
-  <Provider store={store}>
-    <AppNavigator />
-  </Provider>
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <AppNavigator />
+    </Provider>
+  </ApolloProvider>
 )
 
 export default App
