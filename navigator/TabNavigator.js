@@ -21,7 +21,7 @@ const HomeStack = () => (
       headerShown: false,
     }}
   >
-    <Stack.Screen name="Home" component={HomeScreen} />
+    <Stack.Screen name="Index" component={HomeScreen} />
     <Stack.Screen name="Section" component={SectionScreen} />
   </Stack.Navigator>
 )

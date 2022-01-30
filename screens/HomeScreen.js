@@ -123,14 +123,16 @@ function HomeScreen(props) {
               style={{ paddingBottom: 30 }}
               showsHorizontalScrollIndicator={false}
             >
-              {cards.map((item, index) => (
+              {cards.map((card, index) => (
                 <TouchableOpacity
                   key={index}
                   onPress={() => {
-                    props.navigation.navigate('Section')
+                    props.navigation.navigate('Section', {
+                      section: card,
+                    })
                   }}
                 >
-                  <Card {...item} />
+                  <Card {...card} />
                 </TouchableOpacity>
               ))}
             </ScrollView>

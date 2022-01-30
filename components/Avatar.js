@@ -29,7 +29,6 @@ function Avatar(props) {
       .then((response) => {
         let { results = [] } = response
         if (results.length > 0) {
-          console.log(results[0])
           let {
             picture: { medium },
             name: { first, last },
