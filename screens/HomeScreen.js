@@ -33,7 +33,6 @@ const CardsQuery = gql`
           width
           height
         }
-        subtitle
         caption
         logo {
           title
@@ -45,6 +44,7 @@ const CardsQuery = gql`
           width
           height
         }
+        content
       }
     }
   }

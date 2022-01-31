@@ -1,45 +1,133 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Ionicons } from '@expo/vector-icons'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, Linking, ScrollView } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
+import { WebView } from 'react-native-webview'
+import Markdown from 'react-native-showdown'
 
 function SectionScreen(props) {
   const { route } = props
   const { section } = route.params
+  const webview = useRef()
 
   useEffect(() => {}, [])
 
   return (
-    <Container>
-      <StatusBar animated={true} style={'light'} />
-      <Cover>
-        <Image source={{ uri: section.image.url }} />
-        <Wrapper>
-          <Logo source={{ uri: section.logo.url }} />
-          <Subtitle>{section.subtitle}</Subtitle>
-        </Wrapper>
-        <Title>{section.title}</Title>
-        <Caption>{section.caption}</Caption>
-      </Cover>
-      <TouchableOpacity
-        onPress={() => props.navigation.goBack()}
-        style={{ position: 'absolute', top: 20, right: 20 }}
-      >
-        <CloseView>
-          <Ionicons
-            name={'close'}
-            size={28}
-            color="#4775f2"
-            style={{ marginTop: 2, marginLeft: 1 }}
+    <ScrollView>
+      <Container>
+        <StatusBar animated={true} style={'light'} />
+        <Cover>
+          <Image source={{ uri: section.image.url }} />
+          <Wrapper>
+            <Logo source={{ uri: section.logo.url }} />
+            <Subtitle>{section.subtitle}</Subtitle>
+          </Wrapper>
+          <Title>{section.title}</Title>
+          <Caption>{section.caption}</Caption>
+        </Cover>
+        <TouchableOpacity
+          onPress={() => props.navigation.goBack()}
+          style={{ position: 'absolute', top: 20, right: 20 }}
+        >
+          <CloseView>
+            <Ionicons
+              name={'close'}
+              size={28}
+              color="#4775f2"
+              style={{ marginTop: 2, marginLeft: 1 }}
+            />
+          </CloseView>
+        </TouchableOpacity>
+        <Content>
+          {/* <WebView
+          source={{ html: section.content + htmlStyles }}
+          scalesPageToFit={false}
+          scrollEnabled={false}
+          ref={webview}
+          style={{ backgroundColor: 'transparent' }}
+          onNavigationStateChange={(event) => {
+            // 非空白页再跳转
+            if (event.url != 'about:blank') {
+              // 阻止webview默认跳转行为
+              webview.current.stopLoading()
+              Linking.openURL(event.url)
+            }
+          }}
+        /> */}
+          <Markdown
+            style={{ backgroundColor: 'transparent' }}
+            onNavigationStateChange={(event) => {
+              // 非空白页再跳转
+              if (event.url != 'about:blank') {
+                // 阻止webview默认跳转行为
+                Linking.openURL(event.url)
+              }
+            }}
+            body={section.content}
+            pureCSS={htmlStyles}
+            scalesPageToFit={false}
+            scrollEnabled={false}
           />
-        </CloseView>
-      </TouchableOpacity>
-    </Container>
+        </Content>
+      </Container>
+    </ScrollView>
   )
 }
 
 export default SectionScreen
+
+const htmlContent = `
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <h2>This is a title</h2>
+  <p>This <strong>is</strong> a <a href="https://superjames.top">link</a></p>
+  <img src="https://p78.f0.n0.cdn.getcloudapp.com/items/4guZrBZR/ac70e89c-77c7-46a9-851c-09340d3075ff.jpg?v=8c28e2b9c458ad9de782e3ab82df80bd"/>
+`
+
+const htmlStyles = `
+    * {
+      font-family: -apple-system, Roboto;
+      margin: 0;
+      padding: 0;
+      font-size: 17px;
+      font-weight: normal;
+      color: #3c4560;
+      line-height: 24px;
+    }
+
+    h2 {
+      font-size: 20px;
+      text-transform: uppercase;
+      color: #b8bece;
+      font-weight: 600;
+      margin-top: 50px;
+    }
+
+    p {
+      margin-top: 20x;
+    }
+
+    a {
+      color: #4775f2;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    strong {
+      font-weight: 700;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+`
+
+const Content = styled.View`
+  height: 1000px;
+  padding: 20px;
+`
 
 const Container = styled.View`
   flex: 1;
