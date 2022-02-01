@@ -1,21 +1,51 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { Dimensions, TouchableOpacity } from 'react-native'
 
-const Course = (props) => (
-  <Container>
-    <Cover>
-      <Image source={{ uri: props.image }} />
-      <Logo source={props.logo} resizeMode="contain" />
-      <Subtitle>{props.subtitle}</Subtitle>
-      <Title>{props.title}</Title>
-    </Cover>
-    <Content>
-      <Avatar source={{ uri: props.avatar }} />
-      <Caption>{props.caption}</Caption>
-      <Name>Taught by {props.author}</Name>
-    </Content>
-  </Container>
-)
+const screenWidth = Dimensions.get('window').width
+
+function getCourseWidth(width) {
+  let cardWidth = width - 40
+
+  if (width >= 768) {
+    cardWidth = (width - 60) / 2
+  }
+  if (width >= 1024) {
+    cardWidth = (width - 80) / 3
+  }
+
+  return cardWidth
+}
+
+const Course = (props) => {
+  const [cardWidth, setCardWidth] = useState(getCourseWidth(screenWidth))
+
+  useEffect(() => {
+    Dimensions.addEventListener('change', adaptLayout)
+  }, [])
+
+  const adaptLayout = (dimensions) => {
+    setCardWidth(getCourseWidth(Dimensions.get('window').width))
+  }
+
+  return (
+    <TouchableOpacity>
+      <Container style={{ width: cardWidth }}>
+        <Cover>
+          <Image source={{ uri: props.image }} />
+          <Logo source={props.logo} resizeMode="contain" />
+          <Subtitle>{props.subtitle}</Subtitle>
+          <Title>{props.title}</Title>
+        </Cover>
+        <Content>
+          <Avatar source={{ uri: props.avatar }} />
+          <Caption>{props.caption}</Caption>
+          <Name>Taught by {props.author}</Name>
+        </Content>
+      </Container>
+    </TouchableOpacity>
+  )
+}
 
 export default Course
 
@@ -23,9 +53,9 @@ const Container = styled.View`
   width: 315px;
   height: 335px;
   background-color: #fff;
-  margin: 10px 20px;
+  margin: 10px 10px 20px 10px;
   border-radius: 14px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 `
 
 const Cover = styled.View`

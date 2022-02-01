@@ -1,11 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
+import { TouchableOpacity } from 'react-native'
 
 const Logo = (props) => (
-  <Container>
-    <Image source={props.image} resizeMode="contain" />
-    <Text>{props.text}</Text>
-  </Container>
+  <TouchableOpacity>
+    <Container style={{ elevation: 15 }}>
+      <Image source={props.image} resizeMode="contain" />
+      <Text>{props.text}</Text>
+    </Container>
+  </TouchableOpacity>
 )
 
 export default Logo

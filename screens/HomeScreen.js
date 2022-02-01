@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Animated,
   Easing,
+  Platform,
 } from 'react-native'
 import styled from 'styled-components'
 import Card from '../components/Card'
@@ -16,6 +17,7 @@ import { connect } from 'react-redux'
 import { useRef, useEffect } from 'react'
 import Avatar from '../components/Avatar'
 import { useQuery, gql } from '@apollo/client'
+import { useFocusEffect } from '@react-navigation/native'
 
 const CardsQuery = gql`
   {
@@ -75,9 +77,9 @@ function HomeScreen(props) {
     data: cardsData,
   } = useQuery(CardsQuery)
 
-  useEffect(() => {
+  useFocusEffect(() => {
     setStatusBarStyle('dark')
-  }, [])
+  })
 
   useEffect(() => {
     toggleMenu()
@@ -184,9 +186,11 @@ function HomeScreen(props) {
               )}
             </ScrollView>
             <Subtitle>Popular Courses</Subtitle>
-            {courses.map((course, index) => (
-              <Course key={index} {...course} />
-            ))}
+            <CoursesContainer>
+              {courses.map((course, index) => (
+                <Course key={index} {...course} />
+              ))}
+            </CoursesContainer>
           </ScrollView>
         </SafeAreaView>
       </AnimatedContainer>
@@ -195,6 +199,13 @@ function HomeScreen(props) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
+
+const CoursesContainer = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-left: 10px;
+  padding-bottom: 30px;
+`
 
 const Message = styled.Text`
   margin: 20px;
@@ -205,6 +216,7 @@ const Message = styled.Text`
 
 const CardContainer = styled.View`
   flex-direction: row;
+  padding-left: 10px;
 `
 
 const RootView = styled.View`
@@ -224,8 +236,8 @@ const Subtitle = styled.Text`
 const Container = styled.View`
   flex: 1;
   background-color: #f0f3f5;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: ${Platform.OS == 'ios' ? 10 : 0}px;
+  border-top-right-radius: ${Platform.OS == 'ios' ? 10 : 0}px;
 `
 
 const AnimatedContainer = Animated.createAnimatedComponent(Container)
@@ -315,6 +327,28 @@ const cards = [
 ]
 
 const courses = [
+  {
+    title: 'Prototype in InVision Studio',
+    subtitle: '10 sections',
+    image:
+      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F4a%2F8c%2Fca%2F4a8cca78ca797f4dd85e454adedb3157.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645611695&t=c316acf9c0689cd00c38d4d3ca4d05c2',
+    logo: require('../assets/logo_08.png'),
+    author: 'JAMES',
+    avatar:
+      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2Fc2%2F88%2F07%2Fc2880735e9b777937f8453e4bf1d91f9.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645604761&t=7870bc0e2ec0629952c68f8e2d36a352',
+    caption: 'Design and interactive prototype',
+  },
+  {
+    title: 'Prototype in InVision Studio',
+    subtitle: '10 sections',
+    image:
+      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F4a%2F8c%2Fca%2F4a8cca78ca797f4dd85e454adedb3157.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645611695&t=c316acf9c0689cd00c38d4d3ca4d05c2',
+    logo: require('../assets/logo_08.png'),
+    author: 'JAMES',
+    avatar:
+      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2Fc2%2F88%2F07%2Fc2880735e9b777937f8453e4bf1d91f9.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1645604761&t=7870bc0e2ec0629952c68f8e2d36a352',
+    caption: 'Design and interactive prototype',
+  },
   {
     title: 'Prototype in InVision Studio',
     subtitle: '10 sections',

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Card = (props) => (
-  <Container>
+  <Container style={{ elevation: 15 }}>
     <Cover>
       <Image source={{ uri: props.image.url }} />
       <Title>{props.title}</Title>
@@ -56,6 +56,7 @@ const Container = styled.View`
   margin-left: 20px;
   margin-top: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  margin: 20px 10px;
 `
 
 const Cover = styled.View`

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Ionicons } from '@expo/vector-icons'
 import { TouchableOpacity, Linking, ScrollView } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
+import { setStatusBarStyle } from 'expo-status-bar'
 import { WebView } from 'react-native-webview'
 import Markdown from 'react-native-showdown'
 
@@ -11,12 +11,13 @@ function SectionScreen(props) {
   const { section } = route.params
   const webview = useRef()
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    setStatusBarStyle('light')
+  }, [])
 
   return (
     <ScrollView>
       <Container>
-        <StatusBar animated={true} style={'light'} />
         <Cover>
           <Image source={{ uri: section.image.url }} />
           <Wrapper>

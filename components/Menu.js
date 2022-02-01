@@ -5,6 +5,12 @@ import { Ionicons } from '@expo/vector-icons'
 import MenuItem from './MenuItem'
 import { connect } from 'react-redux'
 
+const screenWidth = Dimensions.get('window').width
+let cardWidth = screenWidth
+if (screenWidth > 500) {
+  cardWidth = 500
+}
+
 function mapStateToProps(state) {
   return { action: state.action }
 }
@@ -41,7 +47,7 @@ const Menu = (props) => {
 
     if (props.action == 'closeMenu') {
       Animated.spring(top, {
-        toValue: screenHeight,
+        toValue: Dimensions.get('window').height,
         useNativeDriver: false,
       }).start()
     }
@@ -49,34 +55,36 @@ const Menu = (props) => {
 
   return (
     <AnimatedContainer style={{ top: top }}>
-      <Cover>
-        <Image
-          source={{
-            uri: 'https://img1.baidu.com/it/u=3983561783,2317987665&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500',
+      <Container>
+        <Cover>
+          <Image
+            source={{
+              uri: 'https://img1.baidu.com/it/u=3983561783,2317987665&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500',
+            }}
+          />
+          <Title>JAMES</Title>
+          <Subtitle>Designer at Space</Subtitle>
+        </Cover>
+        <TouchableOpacity
+          onPress={props.closeMenu}
+          style={{
+            position: 'absolute',
+            top: 120,
+            left: '50%',
+            marginLeft: -22,
+            zIndex: 1,
           }}
-        />
-        <Title>JAMES</Title>
-        <Subtitle>Designer at Space</Subtitle>
-      </Cover>
-      <TouchableOpacity
-        onPress={props.closeMenu}
-        style={{
-          position: 'absolute',
-          top: 120,
-          left: '50%',
-          marginLeft: -22,
-          zIndex: 1,
-        }}
-      >
-        <CloseView>
-          <Ionicons name="close" size={44} color="#546bfb" />
-        </CloseView>
-      </TouchableOpacity>
-      <Content>
-        {items.map((item, index) => (
-          <MenuItem key={index} {...item} />
-        ))}
-      </Content>
+        >
+          <CloseView>
+            <Ionicons name="close" size={44} color="#546bfb" />
+          </CloseView>
+        </TouchableOpacity>
+        <Content>
+          {items.map((item, index) => (
+            <MenuItem key={index} {...item} />
+          ))}
+        </Content>
+      </Container>
     </AnimatedContainer>
   )
 }
@@ -111,17 +119,24 @@ const CloseView = styled.View`
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 `
 
+const CatchContainer = styled.View`
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+`
+
 const Container = styled.View`
   position: absolute;
   background: #fff;
-  width: 100%;
+  width: ${cardWidth}px;
   height: 100%;
-  z-index: 100;
+  align-self: center;
   border-radius: 10px;
   overflow: hidden;
 `
 
-const AnimatedContainer = Animated.createAnimatedComponent(Container)
+const AnimatedContainer = Animated.createAnimatedComponent(CatchContainer)
 
 const Cover = styled.View`
   height: 142px;
