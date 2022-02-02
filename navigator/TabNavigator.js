@@ -33,6 +33,20 @@ const TabNavigator = () => (
     }}
   >
     <Tab.Screen
+      name="Projects"
+      component={ProjectsScreen}
+      options={{
+        tabBarLabel: 'Projects',
+        tabBarIcon: ({ focused }) => (
+          <Ionicons
+            name={'folder'}
+            size={26}
+            color={focused ? activeColor : inactiveColor}
+          />
+        ),
+      }}
+    />
+    <Tab.Screen
       name="Home"
       component={HomeStack}
       options={({ navigation }) => {
@@ -64,20 +78,6 @@ const TabNavigator = () => (
         tabBarIcon: ({ focused }) => (
           <Ionicons
             name={'albums'}
-            size={26}
-            color={focused ? activeColor : inactiveColor}
-          />
-        ),
-      }}
-    />
-    <Tab.Screen
-      name="Projects"
-      component={ProjectsScreen}
-      options={{
-        tabBarLabel: 'Projects',
-        tabBarIcon: ({ focused }) => (
-          <Ionicons
-            name={'folder'}
             size={26}
             color={focused ? activeColor : inactiveColor}
           />
