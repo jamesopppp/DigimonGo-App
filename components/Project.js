@@ -5,7 +5,7 @@ function Project(props) {
   return (
     <Container>
       <Cover>
-        <Image source={{ uri: props.image }} />
+        <Image source={props.image} />
         <Title>{props.title}</Title>
         <Author>by {props.author}</Author>
       </Cover>
